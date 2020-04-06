@@ -1,0 +1,35 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 90vh;
+  padding: 40px 0;
+}
+
+.app .board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 450px;
+  border: 1px solid;
+}
+
+.app .board .cell {
+  border: 2px solid;
+  height: 90px;
+  flex-basis: calc(20% - 4px);
+  text-align: center;
+  font-size: 28px;
+  line-height: 100px;
+}
+
+.app .board .highlighted {
+  background: yellow;
+}
+
+input {
+  font-size: 30px;
+  padding: 20px;
+  height: 30px;
+  width: 320px;
+}
