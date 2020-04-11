@@ -16,8 +16,8 @@
 
 .app .board .cell {
   border: 2px solid;
-  height: 90px;
-  flex-basis: calc(20% - 4px);
+  height: 75px;
+  flex-basis: calc(16.666% - 4px);
   text-align: center;
   font-size: 28px;
   line-height: 100px;

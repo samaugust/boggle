@@ -1,39 +1,37 @@
-import { getAdjacentCells, isUnchecked } from './'
+import { getAdjacentCells } from './'
 import config from '../config'
 
-//////FOR GETTING ALL WORDS FROM A GENERATED GAMEBOARD
+//FOR GETTING ALL WORDS FROM A GENERATED GAMEBOARD
 const getAllWordsFromCell = (
   currentCell,
   board,
   dictionary,
-  subwordDictionary,
   wordCandidate = '',
   alreadyChecked = [],
   foundWords = []
 ) => {
-  const nextWordCandidate = `${wordCandidate}${currentCell.value}`
+  const nextWordCandidate = `${wordCandidate}${currentCell.letter}`
   let nextFoundWords = []
+  const isWord = dictionary.words[nextWordCandidate]
+  const isSubword = dictionary.subWords[nextWordCandidate]
+  
   // not a subword so it could never be a word later, stop looking and return from function
-  if (!subwordDictionary[nextWordCandidate]) {
-    return dictionary[nextWordCandidate]
+  if (!isSubword) {
+    return isWord
       ? [...foundWords, nextWordCandidate]
       : foundWords
   }
-  // is a subword, so continue to see whether it will develop into words
-  if (dictionary[nextWordCandidate]) {
-    nextFoundWords = [...nextFoundWords, nextWordCandidate]
+  if (isWord) {
+    nextFoundWords.push(nextWordCandidate)
   }
-  const adjacentCells = getAdjacentCells(
-    currentCell,
-    board
-  ).filter((cell) => isUnchecked(cell, alreadyChecked))
+  // is a subword, so continue recursive search to see whether current sequence will yield more words
+  const adjacentCells = getAdjacentCells(currentCell, board, alreadyChecked)
 
   for (let cell of adjacentCells) {
     const words = getAllWordsFromCell(
       cell,
       board,
       dictionary,
-      subwordDictionary,
       nextWordCandidate,
       [...alreadyChecked, { ...currentCell }]
     )
@@ -42,15 +40,7 @@ const getAllWordsFromCell = (
   return nextFoundWords
 }
 
-export const findAllWords = (board, dictionary, subwordDictionary) => {
-  const foundWords = board.flatMap((cell) =>
-    getAllWordsFromCell(cell, board, dictionary, subwordDictionary)
-  )
-  return [
-    ...new Set(
-      foundWords.filter(
-        (word) => word.length > config.GAME_SETTINGS.MINIMUM_WORD_LENGTH
-      )
-    ),
-  ]
+export const findAllWords = (board, dictionary) => {
+  const foundWords = board.flatMap(cell => getAllWordsFromCell(cell, board, dictionary))
+  return [...new Set(foundWords.filter(word => word.length > config.GAME_SETTINGS.MINIMUM_WORD_LENGTH))]
 }

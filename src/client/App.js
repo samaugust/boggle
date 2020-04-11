@@ -1,31 +1,29 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 
+import config from './config'
 import {
   isInCellList,
   findHighlightedCells,
-  findAllWords,
   createGameBoard
 } from './utils'
-import config from './config'
-
-import {
-  collinsSubwords2019,
-  collinsDictionary2019,
-} from './dictionaries'
 
 import Cell from './Cell'
 import './App.css'
 
-const GAME_BOARD = createGameBoard(
-  config.GAME_SETTINGS.FREQUENCY_TABLE,
-  config.GAME_SETTINGS.BOARD_DIMENSION
-)
-const gameBoardWords = findAllWords(
-  GAME_BOARD,
-  collinsDictionary2019,
-  collinsSubwords2019
-)
+const options = {
+  dictionary: config.GAME_SETTINGS.DICTIONARY,
+  boardDimension: config.GAME_SETTINGS.BOARD_DIMENSION,
+  frequencyTable: config.GAME_SETTINGS.FREQUENCY_TABLE,
+  bonusWord: "CSUKI",
+  minWordCount: 300
+}
+
+const before = Date.now()
+const GAME_BOARD = createGameBoard(options)
+const after = Date.now()
+console.info(`A board with these parameters took this long to generate: ${(after-before)/1000}`)
+console.warn(JSON.stringify(GAME_BOARD))
 
 const App = () => {
   const [highlightedCells, setHighlightedCells] = useState([])
@@ -34,7 +32,7 @@ const App = () => {
   const handleChange = (e) => {
     const input = e.target.value.toUpperCase()
     setInput(input)
-    const matches = findHighlightedCells(GAME_BOARD, input)
+    const matches = findHighlightedCells(GAME_BOARD.board, input)
     setHighlightedCells(matches)
   }
 
@@ -45,13 +43,17 @@ const App = () => {
     }
   }
 
+  const formatLetter = letter => (
+    letter === 'QU' ? 'Qu' : letter
+  )
+
   return (
     <div className="app">
       <div className="board">
-        {GAME_BOARD.map((cell) => (
+        {GAME_BOARD.board.map((cell) => (
           <Cell
             key={cell.id}
-            letter={cell.value} 
+            letter={formatLetter(cell.letter)} 
             className={classNames('cell', { highlighted: isInCellList(highlightedCells, cell) })}>
           </Cell>
         ))}
