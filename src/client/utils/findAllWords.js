@@ -1,5 +1,4 @@
 import { getAdjacentCells } from './'
-import config from '../config'
 
 //FOR GETTING ALL WORDS FROM A GENERATED GAMEBOARD
 const getAllWordsFromCell = (
@@ -42,5 +41,5 @@ const getAllWordsFromCell = (
 
 export const findAllWords = (board, dictionary) => {
   const foundWords = board.flatMap(cell => getAllWordsFromCell(cell, board, dictionary))
-  return [...new Set(foundWords.filter(word => word.length > config.GAME_SETTINGS.MINIMUM_WORD_LENGTH))]
+  return [...new Set(foundWords)]
 }
