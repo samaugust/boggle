@@ -5,6 +5,7 @@ import { isUnchecked } from './isUnchecked'
 import { findHighlightedCells } from './findHighlightedCells'
 import { createGameBoard } from './createGameBoard'
 import { getFrequencyTable } from './getFrequencyTable'
+import { isInvalidEntry } from './isInvalidEntry'
 
 export {
   findHighlightedCells,
@@ -13,5 +14,6 @@ export {
   isInCellList,
   isUnchecked,
   createGameBoard,
-  getFrequencyTable
+  getFrequencyTable,
+  isInvalidEntry
 }

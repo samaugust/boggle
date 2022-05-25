@@ -1,3 +1,9 @@
+html ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0
+}
+
 .app {
   font-family: "lucida grande";
   display: flex;
@@ -68,6 +74,7 @@ input {
   margin-top: 8px;
   margin-right: 110px;
 }
+
 .word-list .highlighted {
   font-size: 14px;
 }
