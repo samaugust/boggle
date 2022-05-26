@@ -62,9 +62,9 @@ const Gameboard = ({gameboardData, input, setInput, highlightedCells, setHighlig
   console.warn({gameboardData})
 
   return (
-    <React.Fragment>
+    <>
       <div className={classNames("board", `board-${boardDimension}x${boardDimension}`)}>
-          {gameboardData && gameboardData.board.map((cell) => (
+          {gameboardData.board.map((cell) => (
             <Cell
               key={cell.id}
               cell={{...cell}}
@@ -81,7 +81,7 @@ const Gameboard = ({gameboardData, input, setInput, highlightedCells, setHighlig
           { GAME_BOARD.words.filter(w => w.length > 2).map(word => <li className={classNames('word', { highlighted: input === word})} key={word}>{word}</li>) }
         </ul> */}
 
-      </React.Fragment>
+      </>
   )
 }
 

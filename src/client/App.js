@@ -1,6 +1,6 @@
 import React from 'react'
-import './App.css'
-import './normalize.css'
+import './App.sass'
+import './reset.css'
 
 import ActiveGame from './views/ActiveGame/ActiveGame'
 

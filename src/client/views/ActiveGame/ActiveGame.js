@@ -9,6 +9,7 @@ import Gameboard from './components/Gameboard'
 import Timer from './components/Timer'
 import WordInput from './components/WordInput'
 import EnteredWordList from './components/EnteredWordList'
+import PlayerList from './components/PlayerList'
 
 const options = {
   dictionary: config.GAME_SETTINGS.DICTIONARY,
@@ -30,18 +31,22 @@ const ActiveGame = () => {
   const [inputError, setInputError] = useState('')
 
   return (
-    <Fragment>
-      <Gameboard
-        gameboardData={GAMEBOARD}
-        highlightedCells={highlightedCells}
-        setHighlightedCells={setHighlightedCells}
-        input={input}
-        setInput={setInput}
-        setInputError={setInputError}
-        enteredWords={enteredWords}
-        setEnteredWords={setEnteredWords}
-      />
-        <Timer/>
+    <div className="container active-game-container">
+      <div className="player-pane">
+        <PlayerList/>
+      </div>
+
+      <section className="game-pane">
+        <Gameboard
+          gameboardData={GAMEBOARD}
+          highlightedCells={highlightedCells}
+          setHighlightedCells={setHighlightedCells}
+          input={input}
+          setInput={setInput}
+          setInputError={setInputError}
+          enteredWords={enteredWords}
+          setEnteredWords={setEnteredWords}
+        />
         <WordInput
           gameboard={GAMEBOARD.board}
           input={input}
@@ -52,8 +57,13 @@ const ActiveGame = () => {
           enteredWords={enteredWords}
           setEnteredWords={setEnteredWords}
         />
+      </section>
+
+      <section className="progress-pane">
+        <Timer/>
         <EnteredWordList enteredWords={enteredWords} totalWords={GAMEBOARD.words.length}/>
-      </Fragment>
+      </section>
+    </div>
   )
 }
 
