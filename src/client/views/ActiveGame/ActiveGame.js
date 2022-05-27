@@ -10,6 +10,7 @@ import Timer from './components/Timer'
 import WordInput from './components/WordInput'
 import EnteredWordList from './components/EnteredWordList'
 import PlayerList from './components/PlayerList'
+import GameHeader from '../shared/GameHeader'
 
 const options = {
   dictionary: config.GAME_SETTINGS.DICTIONARY,
@@ -31,38 +32,44 @@ const ActiveGame = () => {
   const [inputError, setInputError] = useState('')
 
   return (
-    <div className="container active-game-container">
-      <div className="player-pane">
-        <PlayerList/>
+    <div className="active-game-container">
+      <div className="active-game-header">
+        <GameHeader/>
       </div>
 
-      <section className="game-pane">
-        <Gameboard
-          gameboardData={GAMEBOARD}
-          highlightedCells={highlightedCells}
-          setHighlightedCells={setHighlightedCells}
-          input={input}
-          setInput={setInput}
-          setInputError={setInputError}
-          enteredWords={enteredWords}
-          setEnteredWords={setEnteredWords}
-        />
-        <WordInput
-          gameboard={GAMEBOARD.board}
-          input={input}
-          setInput={setInput}
-          inputError={inputError}
-          setInputError={setInputError}
-          setHighlightedCells={setHighlightedCells}
-          enteredWords={enteredWords}
-          setEnteredWords={setEnteredWords}
-        />
-      </section>
+      <div className="active-game-content">
+        <section className="player-pane">
+          <PlayerList/>
+        </section>
 
-      <section className="progress-pane">
-        <Timer/>
-        <EnteredWordList enteredWords={enteredWords} totalWords={GAMEBOARD.words.length}/>
-      </section>
+        <section className="game-pane">
+          <Gameboard
+            gameboardData={GAMEBOARD}
+            highlightedCells={highlightedCells}
+            setHighlightedCells={setHighlightedCells}
+            input={input}
+            setInput={setInput}
+            setInputError={setInputError}
+            enteredWords={enteredWords}
+            setEnteredWords={setEnteredWords}
+          />
+          <WordInput
+            gameboard={GAMEBOARD.board}
+            input={input}
+            setInput={setInput}
+            inputError={inputError}
+            setInputError={setInputError}
+            setHighlightedCells={setHighlightedCells}
+            enteredWords={enteredWords}
+            setEnteredWords={setEnteredWords}
+          />
+        </section>
+
+        <section className="progress-pane">
+          <Timer/>
+          <EnteredWordList enteredWords={enteredWords} totalWords={GAMEBOARD.words.length}/>
+        </section>
+      </div>
     </div>
   )
 }

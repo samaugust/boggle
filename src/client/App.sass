@@ -1,16 +1,43 @@
+#root
+  font-family: lucida grande, lucida, tahoma, arial, sans-serif
+  font-size: 10pt
+  max-width: 60rem
+  margin: 0 auto
+  color: #262626
+  display: flex
+  justify-content: center
+  background: #fefdff
+  
 .app
   font-family: "lucida grande"
   font-size: 10pt
+  display: flex
+  justify-content: center
+  max-width: 50rem
+  width: 100%
+
+h1
+  font-size: 14pt
+  font-weight: bold
+
+.active-game-header
+  display: block
+  text-align: right
+  margin-bottom: 2rem
+  margin-top: 12.5px
+  .game-header
+    .game-title
+      margin-bottom: 6px
+    b
+      font-weight: bold
 
 .active-game-container
+  width: 100%
+.active-game-content
   display: flex
-  flex-grow: 1
-  flex-shrink: 1
-  flex-basis: 0%
 
   .game-pane
     flex: 1
-    width: 320px
     .board
       display: grid
       width: 320px
@@ -20,13 +47,18 @@
       border: 3px solid #8097c1
   .player-pane
     flex-grow: 0
-    flex-shrink: 1
+    flex-shrink: 0
     flex-basis: 200px
+    margin-right: 32px
   .progress-pane
-    flex-grow: 0
-    flex-shrink: 1
+    flex-grow: 1
+    flex-shrink: 0
     flex-basis: 110px
     text-align: right
+    .time-remaining
+      margin-bottom: 1rem
+    .word-count
+      color: #aaa
 
 ::selection
   color: none
@@ -54,6 +86,8 @@
   align-items: center
   font-size: 26px
   padding: 5px
+  color:#262626
+  font-family: lucida grande, lucida, tahoma, arial, sans-serif !important
 
 .app .board .cell:hover
   cursor: pointer
@@ -79,8 +113,9 @@ input
   border-top: 1px solid #ddd
   padding: 12px
   display: flex
-  align-items: flex-start
-  justify-content: flex-end
+.avatar-group:last-child
+  border-bottom: 1px solid #ddd
+
 
 .avatar-img
   height: 48px

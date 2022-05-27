@@ -18,7 +18,7 @@ const Timer = ({ initialTime }) => {
   })
 
   return (
-    <p>{timeRemaining}</p>
+    <p className="time-remaining">{timeRemaining} seconds</p>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import './App.sass'
 import './reset.css'
+import './App.sass'
 
 import ActiveGame from './views/ActiveGame/ActiveGame'
 
