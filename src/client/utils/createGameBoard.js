@@ -1,5 +1,6 @@
 import { ALPHABET } from '../constants'
 import { getAdjacentCells, findAllWords } from './'
+import config from '../config'
 
 //FOR GENERATING A BOARD
 const getLettersForBoard = (frequencyTable, boardDimension) => {
@@ -31,9 +32,9 @@ const getLettersForBoard = (frequencyTable, boardDimension) => {
 
 const generateRandomBoard = (frequencyTable, boardDimension) => {
   const lettersForBoard = getLettersForBoard(frequencyTable, boardDimension)
+
   let i = 0
   const gameBoard = []
-
   for (let x = 0; x < boardDimension; x++) {
     for (let y = 0; y < boardDimension; y++) {
       gameBoard.push({ x, y, letter: lettersForBoard[i], id: i })
@@ -93,5 +94,6 @@ export const createGameBoard = options => {
   }
 
   const words = findAllWords(board, dictionary)
+
   return { board, words }
 }

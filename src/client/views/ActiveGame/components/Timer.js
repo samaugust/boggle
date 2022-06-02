@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const Timer = ({ initialTime }) => {
+const Timer = ({ initialTime = 20000, setGameStatus }) => {
 
   const [timeRemaining, setTimeRemaining] = useState(180)
 
@@ -9,6 +9,10 @@ const Timer = ({ initialTime }) => {
       setTimeRemaining(Math.floor(initialTime / 1000))
     }
   }, [initialTime])
+
+  useEffect(() => {
+    if (timeRemaining === 0) setGameStatus('complete')
+  }, [timeRemaining])
 
   useEffect(() => {
     const updateTimeRemaining = setInterval(() => {

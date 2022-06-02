@@ -1,9 +1,10 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 
 import config from '../../config'
 import {
   createGameBoard,
 } from '../../utils'
+//import { board1 } from '../../stubs/boardStubs'
 
 import Gameboard from './components/Gameboard'
 import Timer from './components/Timer'
@@ -21,11 +22,12 @@ const options = {
 
 const before = Date.now()
 const GAMEBOARD = createGameBoard(options)
+// const GAMEBOARD = board1
 const after = Date.now()
 console.info(`A board with these parameters took this long to generate: ${(after-before)/1000}`)
 console.warn(JSON.stringify(GAMEBOARD))
 
-const ActiveGame = () => {
+const ActiveGame = ({setGameStatus}) => {
   const [highlightedCells, setHighlightedCells] = useState([])
   const [input, setInput] = useState('')
   const [enteredWords, setEnteredWords] = useState([])
@@ -66,8 +68,8 @@ const ActiveGame = () => {
         </section>
 
         <section className="progress-pane">
-          <Timer/>
-          <EnteredWordList enteredWords={enteredWords} totalWords={GAMEBOARD.words.length}/>
+          <Timer setGameStatus={setGameStatus}/>
+          <EnteredWordList enteredWords={enteredWords} setEnteredWords={setEnteredWords} totalWords={GAMEBOARD.words.length}/>
         </section>
       </div>
     </div>
