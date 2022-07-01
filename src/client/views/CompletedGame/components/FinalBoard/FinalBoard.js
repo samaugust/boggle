@@ -8,15 +8,19 @@ const FinalBoard = ({ board }) => {
     .map((_, i) => {
       const pos = i * itemsPerRow;
       const cells = board.slice(pos, pos + itemsPerRow);
-      return cells.map((cell) => (
-        <div className={styles.cell}>{cell.letter}</div>
+      return cells.map((cell, j) => (
+        <div key={`col${j}-${cell.letter}`} className={styles.cell}>
+          {cell.letter}
+        </div>
       ));
     });
 
   return (
     <div className={styles.table}>
-      {rows.map((row) => (
-        <div className={styles.row}>{row}</div>
+      {rows.map((row, i) => (
+        <div key={`row${i}`} className={styles.row}>
+          {row}
+        </div>
       ))}
     </div>
   );

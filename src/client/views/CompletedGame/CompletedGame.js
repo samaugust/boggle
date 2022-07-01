@@ -1,37 +1,89 @@
 import React, { useEffect, useState } from "react";
 import { getResults } from "../../utils/getResults";
-import { user1 } from "../../stubs/userStubs";
+import { user1, user2, user3, user4, user5 } from "../../stubs/userStubs";
+import { submissionStubs1 } from "../../stubs/submissionStubs";
 
 import WinnerHeader from "./components/WinnerHeader";
 
 import wordStyles from "./Word.module.sass";
 import styles from "./CompletedGame.module.sass";
-import FinalBoard from "./components/FinalBoard/FinalBoard";
+import FinalBoard from "./components/FinalBoard";
+import ScoreTable from "./components/ScoreTable";
 
 const CompletedGame = ({ game }) => {
+  const [players] = useState([user1, user2, user3, user4, user5]);
   const [results, setResults] = useState({});
+  const [userColumns, setUserColumns] = useState([]);
+  // Winners are an array in case of a tie
+  const [winnerIds, setWinnerIds] = useState([0]);
 
   useEffect(() => {
-    setResults(getResults(game));
+    // In real world, we would also fetch the submissions and pull user data from state here
+    const submissions = submissionStubs1;
+    const _results = getResults(game);
+
+    const columnData = players.map((player) => {
+      let points = 0;
+      let words = [];
+      const playerSubs = submissions.find(
+        (sub) => sub.userId === player.id
+      )?.submissions;
+
+      if (playerSubs && playerSubs.length > 0) {
+        words = playerSubs.map((w) => ({
+          word: w,
+          ..._results[w],
+        }));
+        words.forEach(({ word }) => {
+          points += _results[word].score;
+        });
+      }
+
+      return {
+        id: player.id,
+        name: player.name,
+        img: player.img,
+        points,
+        words,
+      };
+    });
+
+    // Find winner(s)
+    let _winnerIds = [];
+    let highestScore = 0;
+    columnData.forEach((player) => {
+      if (player.points > highestScore) {
+        highestScore = player.points;
+        _winnerIds = [player.id];
+      } else if (player.points === highestScore) {
+        _winnerIds.push(player.id);
+      }
+    });
+
+    setResults(_results);
+    setWinnerIds(_winnerIds);
+    setUserColumns(columnData);
   }, []);
 
-  console.log({
-    game,
-    results,
-  });
+  const winners = userColumns.filter((user) => winnerIds.includes(user.id));
 
   return (
     <div>
       <div className={styles["results-container"]}>
-        <WinnerHeader
-          playerAvatarUrl={user1.img}
-          playerName={user1.name}
-          percentFound={24}
-        />
-        <FinalBoard board={game.board.board} />
-        <div className="score-table-container">
-          <div className="score-table"></div>
+        <div>
+          {/* Need to handle the case of a tie better later on */}
+          {/* For now it just spits out multiple winner headers */}
+          {winners.map((user) => (
+            <WinnerHeader
+              playerAvatarUrl={user.img}
+              playerName={user.name}
+              percentFound={24}
+              key={user.id}
+            />
+          ))}
         </div>
+        <FinalBoard board={game.board.board} />
+        <ScoreTable userColumns={userColumns} />
         <div className="words-not-found"></div>
         <div className="scoring-key">
           Scoring key:

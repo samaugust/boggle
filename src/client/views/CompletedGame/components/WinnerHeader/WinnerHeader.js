@@ -14,7 +14,7 @@ const WinnerHeader = ({
           src={playerAvatarUrl}
           alt={playerName}
         />
-        <h1>{playerName}</h1>
+        <h1>{playerName} is the winner!</h1>
       </div>
       <div>
         <h1>{percentFound}% found</h1>

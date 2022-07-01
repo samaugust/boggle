@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import ScoreColumn from "./ScoreColumn";
 
-const ScoreTable = ({ players, results }) => {
-  const columnData = players.map(() => {});
+import styles from "./ScoreTable.module.sass";
 
+const ScoreTable = ({ userColumns }) => {
   return (
-    <div>
-      {columnData.map((data) => (
-        <ScoreColumn {...data} />
+    <div className={styles["score-table-wrapper"]}>
+      {userColumns.map((user) => (
+        <ScoreColumn {...user} key={user.id} />
       ))}
     </div>
   );
