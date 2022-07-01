@@ -4,4 +4,4 @@ export const SCORE_KEY = {
   "5LW": 3,
   "6LW": 5,
   "7LW": 8,
-}
+};

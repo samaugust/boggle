@@ -13,7 +13,7 @@
   font-size: 10pt
   display: flex
   justify-content: center
-  max-width: 50rem
+  max-width: 60rem
   width: 100%
 
 h1
@@ -72,12 +72,12 @@ h1
   background: rgba(135, 206, 235) !important
 
 .board-4x4
-  grid-template-columns: repeat(4, 1fr)
-  grid-template-rows: repeat(4, 1fr)
+  grid-template-columns: repeat(4, 1fr) !important
+  grid-template-rows: repeat(4, 1fr) !important
 
 .board-5x5
-  grid-template-columns: repeat(5, 1fr)
-  grid-template-rows: repeat(5, 1fr)
+  grid-template-columns: repeat(5, 1fr) !important
+  grid-template-rows: repeat(5, 1fr) !important
 
 .board-6x6
   grid-template-columns: repeat(6, 1fr) !important
@@ -92,6 +92,9 @@ h1
   padding: 5px
   color:#262626
   font-family: lucida grande, lucida, tahoma, arial, sans-serif !important
+
+.app .board-4x4 .cell
+  font-size: 32px
 
 .app .board .cell:hover
   cursor: pointer
@@ -129,3 +132,29 @@ input
   display: inline
   margin-left: 8px
   padding-top: 8px
+
+.nav-bar
+  margin: 0.5rem 1rem 0 0
+  flex: 0 10rem
+  .nav-logo
+    margin-top: 4px
+  .nav-logo img
+    width: 64px
+
+.nav-tabs 
+  list-style: none
+  margin: 1.5rem 0
+
+.nav-tabs li 
+  display: list-item
+  text-align: -webkit-match-parent
+
+.nav-tabs li a
+  display: block
+  color: #544
+  font-size: 12pt
+  margin: 1.5rem 0
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
