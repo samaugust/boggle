@@ -1,5 +1,7 @@
 import React, { memo } from "react";
+import classNames from "classnames";
 import styles from "./ScoreColumn.module.sass";
+import scoreStyles from "../../Score.module.sass";
 
 // words = list of words with the points, whether it's a real word, full score, normal, or not in the board
 
@@ -14,12 +16,21 @@ const ScoreColumn = ({ name, img, points, words }) => {
         </div>
       </div>
       <div>
-        {words.map((w, i) => (
-          <div key={w.word} className={styles["word-row"]}>
-            <div className="word">{w.word}</div>
-            <div className="score">{w.score}</div>
-          </div>
-        ))}
+        {words.map((w, i) => {
+          const wordClassNames = classNames("word", "normal", {
+            [scoreStyles["not-in-board"]]: !w.isInBoard,
+            [scoreStyles["not-real"]]: w.isInBoard && !w.isWord,
+            [scoreStyles["full-score"]]:
+              w.isInBoard && w.isWord && w.isUniqueFind,
+          });
+
+          return (
+            <div key={w.word} className={styles["word-row"]}>
+              <div className={wordClassNames}>{w.word}</div>
+              <div className="score">{w.score}</div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

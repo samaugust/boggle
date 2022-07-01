@@ -12,17 +12,18 @@ const getInitialScoreForWord = (word) => {
   return SCORE_KEY["7LW"] + (word.length - 7);
 };
 
-const processSubmissions = (userSubmissions, game, penalty) => {
+const processSubmissions = (userSubmissions, gameSettings) => {
+  const { penalty } = gameSettings;
   const dictionary = GAME_SETTINGS.DICTIONARY;
-  const allWordsInBoard = game.board?.words || [];
   const allUserSubmissions = userSubmissions.reduce((arr, userSub) => {
     return [...arr, ...userSub.submissions];
   }, []);
 
   const submissions = allUserSubmissions.reduce(
-    (submissionTally, currentSubmission) => {
+    (submissionTally, submission) => {
+      const currentSubmission = submission.word;
+      const isInBoard = submission.isInBoard;
       const isWord = dictionary.words[currentSubmission];
-      const isInBoard = allWordsInBoard.includes(currentSubmission);
       const submissionInfo = submissionTally[currentSubmission];
       const hasBeenTallied = !!submissionTally[currentSubmission];
       if (!isInBoard && !hasBeenTallied) {
@@ -49,6 +50,9 @@ const processSubmissions = (userSubmissions, game, penalty) => {
           ...submissionTally[currentSubmission],
           score: Math.floor(submissionInfo.score / 2),
         };
+      if (isInBoard && isWord) {
+        submissionTally[currentSubmission].isUniqueFind = !hasBeenTallied;
+      }
       return submissionTally;
     },
     {}
@@ -57,9 +61,12 @@ const processSubmissions = (userSubmissions, game, penalty) => {
   return submissions;
 };
 
-const getResults = (game) => {
+const getResults = (gameSettings) => {
   // We would query the API here instead of using stub later
-  const processedSubmissions = processSubmissions(submissionStubs1, game);
+  const processedSubmissions = processSubmissions(
+    submissionStubs1,
+    gameSettings
+  );
   return processedSubmissions;
 };
 

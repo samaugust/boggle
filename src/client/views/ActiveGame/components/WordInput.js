@@ -12,7 +12,9 @@ const WordInput = ({
   enteredWords,
   setEnteredWords,
 }) => {
-  console.log(gameboard);
+  // console.log(gameboard);
+
+  // We need to make sure the entered words stored whether the guess was in the board or not. The completed game needs that data and we don't want to compute it again there.
 
   const handleChange = (e) => {
     const input = e.target.value.toUpperCase();
