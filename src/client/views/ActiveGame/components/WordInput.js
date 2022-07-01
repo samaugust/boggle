@@ -1,30 +1,42 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 
-import { isInvalidEntry, findHighlightedCells } from '../../../utils'
+import { isInvalidEntry, findHighlightedCells } from "../../../utils";
 
-const WordInput = ({ gameboard, input, setInput, inputError, setInputError, setHighlightedCells, enteredWords, setEnteredWords }) => {
+const WordInput = ({
+  gameboard,
+  input,
+  setInput,
+  inputError,
+  setInputError,
+  setHighlightedCells,
+  enteredWords,
+  setEnteredWords,
+}) => {
+  console.log(gameboard);
 
   const handleChange = (e) => {
-    const input = e.target.value.toUpperCase()
-    setInput(input)
-    const matches = findHighlightedCells(gameboard, input)
-    setHighlightedCells(matches)
-  }
+    const input = e.target.value.toUpperCase();
+    setInput(input);
+    const matches = findHighlightedCells(gameboard.board, input);
+    setHighlightedCells(matches);
+  };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      const error = isInvalidEntry(input, 0, enteredWords)
+    if (e.key === "Enter") {
+      const error = isInvalidEntry(input, 0, enteredWords);
       if (error) {
-        setInputError(error)
+        setInputError(error);
       } else {
-        const newEnteredWords = [...enteredWords, input].sort((a, b) => a.localeCompare(b))
-        setInputError('')
-        setEnteredWords(newEnteredWords)
+        const newEnteredWords = [...enteredWords, input].sort((a, b) =>
+          a.localeCompare(b)
+        );
+        setInputError("");
+        setEnteredWords(newEnteredWords);
       }
-      setInput('')
-      setHighlightedCells([])
+      setInput("");
+      setHighlightedCells([]);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -33,10 +45,9 @@ const WordInput = ({ gameboard, input, setInput, inputError, setInputError, setH
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
-        {inputError && <p>{inputError}</p>}
+      {inputError && <p>{inputError}</p>}
     </Fragment>
+  );
+};
 
-  )
-}
-
-export default WordInput
+export default WordInput;

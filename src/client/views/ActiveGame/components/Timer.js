@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-const Timer = ({ initialTime = 20000, setGameStatus }) => {
-
-  const [timeRemaining, setTimeRemaining] = useState(180)
+const Timer = ({ initialTime = 1000, setGameStatus }) => {
+  const [timeRemaining, setTimeRemaining] = useState(180);
 
   useEffect(() => {
     if (initialTime) {
-      setTimeRemaining(Math.floor(initialTime / 1000))
+      setTimeRemaining(Math.floor(initialTime / 1000));
     }
-  }, [initialTime])
+  }, [initialTime]);
 
   useEffect(() => {
-    if (timeRemaining === 0) setGameStatus('complete')
-  }, [timeRemaining])
+    if (timeRemaining === 0) setGameStatus("complete");
+  }, [timeRemaining]);
 
   useEffect(() => {
     const updateTimeRemaining = setInterval(() => {
-      setTimeRemaining(timeRemaining - 1)
-    }, 1000)
-    return () => clearInterval(updateTimeRemaining)
-  })
+      setTimeRemaining(timeRemaining - 1);
+    }, 1000);
+    return () => clearInterval(updateTimeRemaining);
+  });
 
-  return (
-    <p className="time-remaining">{timeRemaining} seconds</p>
-  )
-}
+  return <p className="time-remaining">{timeRemaining} seconds</p>;
+};
 
-export default Timer
+export default Timer;
